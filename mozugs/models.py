@@ -38,6 +38,8 @@ class Bug(ModelBase):
     __tablename__ = "bugs"
 
     id = Column(Integer, primary_key=True)
+    reporter_id = Column(Integer, ForeignKey("users.id"))
+    reporter = relationship(User)
     title = Column(String)
     description = Column(String)
     severity = Column(ChoiceType((("m", "Minor"), ("N", "Normal"), ("M", "Major"))))

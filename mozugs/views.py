@@ -6,6 +6,7 @@ from sqlalchemy import exc as saexc
 from sqlalchemy.orm import exc as ormexc
 
 from werkzeug import redirect
+from werkzeug.exceptions import Forbidden
 
 from mozugs import models, util
 
@@ -69,9 +70,12 @@ def logout(app, req):
 
 
 def new_bug(app, req):
+    if req.user is None:
+        raise Forbidden
     if req.method == "GET":
         return respond(app, req, "newbug.html", {})
     bug = models.Bug()
+    bug.reporter = req.user
     bug.title = req.form[u"title"]
     bug.description = req.form[u"description"]
     bug.severity = req.form[u"severity"]
