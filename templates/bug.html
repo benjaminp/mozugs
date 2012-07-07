@@ -34,7 +34,8 @@
 
     <div class="commentform">
     <form id="new{{ short }}comment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind=kind) }}">
-        <p><label for="{{ short }}commentform-message">Message</label><textarea id="{{ short }}commentform-message" name="message"></textarea></p>
+        <p><label for="{{ short }}commentform-message">New comment:</label><p><textarea class="newcomment-message"
+        id="{{ short }}commentform-message" name="message"></textarea>
         <input type="submit" value="Submit comment">
     </form>
     </div>
