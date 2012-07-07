@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Bug #{{ bug.id }}{% endblock %}
 {% block content %}
-<div id="bug-header" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-     xmlns="http://www.w3.org/1999/html">
+<div id="bug-header">
 <h1>Bug {{ bug.id }} - {{ bug.title|e }}</h1>
 <div>Reporter: {{ bug.reporter.email|e }} on {{ bug.created.strftime("%A, %d. %B %Y %I:%M%p") }}</div>
 <div>Severity: {{ bug.severity }}</div>
