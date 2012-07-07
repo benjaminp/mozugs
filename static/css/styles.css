@@ -1,5 +1,27 @@
 #bug-header {
     background-color: grey;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 10px;
+}
+
+.bug-column-wrapper {
+    width: 33.3%;
+    display: inline-block;
+    float: left;
+}
+
+.bug-column {
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 5px;
+    border: 3px solid black;
+}
+
+#bug-description {
+    margin-left: 0px;
+}
+
+#bug-solution {
+    margin-right: 0px;
 }
