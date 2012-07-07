@@ -10,7 +10,7 @@ class User(ModelBase):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String) # TODO
     email = Column(String, unique=True)
 
     def __init__(self, email):
@@ -18,6 +18,9 @@ class User(ModelBase):
 
     def __repr__(self):
         return "<User(%s)>" % self.name
+
+    def __str__(self):
+        return str(self.email)
 
 
 class AuthSession(ModelBase):

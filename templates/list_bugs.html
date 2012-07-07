@@ -2,10 +2,23 @@
 {% block title %}Bugs{% endblock %}
 {% block content %}
 
-<ul>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Reporter</th>
+        <th>Severity</th>
+        <th>Product</th>
+        <th>Version</th>
+    </tr>
     {% for bug in bugs %}
-        <li><a href="{{ url_for('view_bug', bugid=bug.id) }}">{{ bug.title }}</a></li>
+        <tr>
+            <td><a href="{{ url_for('view_bug', bugid=bug.id) }}">{{ bug.title }}</a></td>
+            <td>{{ bug.reporter|e }}</td>
+            <td>{{ bug.severity }}</td>
+            <td>{{ bug.product }}</td>
+            <td>{{ bug.version }}</td>
+        </tr>
     {% endfor %}
-</ul>
+</table>
 
 {% endblock %}
