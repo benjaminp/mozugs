@@ -2,10 +2,12 @@
 {% block title %}MozUgs - A terribly named bugtracker{% endblock %}
 {% block content %}
 
-Hello, there! Would you like to <a href="{{ url_for('new_bug') }}">file a new bug</a>?
+<p>Hello, there! Would you like to <a href="{{ url_for('new_bug') }}">file a new bug</a>?</p>
 
-<a href="#" id="browserid" title="Sign-in with BrowserID">
+<p>Or <a href="{{ url_for('list_bugs') }}">view the list of submitted bugs</a>?</p>
+
+<p><a href="#" id="browserid" title="Sign-in with BrowserID">
     <img src="/static/images/sign_in_green.png" alt="Sign in">
-</a>
+</a></p>
 
 {% endblock %}

@@ -52,3 +52,8 @@ def new_bug(app, req):
 def view_bug(app, req, bugid):
     bug = req.session.query(models.Bug).filter_by(id=bugid).one()
     return respond(app, req, "bug.html", {u"bug" : bug})
+
+
+def list_bugs(app, req):
+    bugs = req.session.query(models.Bug)
+    return respond(app, req, "list_bugs.html", {u"bugs": bugs})
