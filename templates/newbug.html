@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<form id="newbug-form" method="post">
+<label for="bugform-title">Title</label><input id="bugform-title" name="title" type="text">
+<label for="bugform-description">What is the bug?</label><textarea id="bugform-description" name="description"></textarea>
+<input type="submit" value="Enter bug">
+</form>
+{% endblock %}

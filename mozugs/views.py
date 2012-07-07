@@ -1,5 +1,9 @@
 import urllib
 import json
+from werkzeug import redirect
+
+from mozugs import models
+
 
 def respond(app, req, template, env):
     """Run template engine and generate response"""
@@ -32,3 +36,19 @@ def login(app, req):
     else:
         # fail
         pass
+
+
+def new_bug(app, req):
+    if req.method == "GET":
+        return respond(app, req, "newbug.html", {})
+    bug = models.Bug()
+    bug.title = req.form[u"title"]
+    bug.description = req.form[u"description"]
+    req.session.add(bug)
+    req.session.commit()
+    return redirect(req.router.build("view_bug", {"bugid" : bug.id}))
+
+
+def view_bug(app, req, bugid):
+    bug = req.session.query(models.Bug).filter_by(id=bugid).one()
+    return respond(app, req, "bug.html", {u"bug" : bug})
