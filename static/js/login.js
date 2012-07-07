@@ -11,7 +11,7 @@ $(document).ready(function () {
         if (assertion !== null) {
             $.ajax({
                 type: 'POST',
-                url: '/login',
+                url: '/login/',
                 data: { assertion: assertion },
                 success: function(res, status, xhr) {
                     if (res === null) {}//loggedOut();

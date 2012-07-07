@@ -21,6 +21,7 @@
 <div class="login-box">
 {% if user %}
 Logged in as {{ user.email|e }}
+<a class="nav-url" href="{{ url_for('logout') }}">Logout</a>
 {% else %}
 <span style="color: red">Not logged in</span>
 <a class="nav-url" href="#" id="browserid">Sign-in with BrowserID</a>

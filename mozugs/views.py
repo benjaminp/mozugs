@@ -61,6 +61,13 @@ def login(app, req):
     return response
 
 
+def logout(app, req):
+    if req.user is not None:
+        req.session.query(models.AuthSession).filter_by(user=req.user).delete()
+        req.session.commit()
+    return redirect(req.router.build("index"))
+
+
 def new_bug(app, req):
     if req.method == "GET":
         return respond(app, req, "newbug.html", {})
