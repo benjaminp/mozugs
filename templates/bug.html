@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Bug #{{ bug.id }}{% endblock %}
+{% block content %}
+<div id="bug-header">
+{{ bug.title|e }}
+</div>
+<section id="bug-description">
+<h2>Bug Cause</h2>
+{{ bug.description|e }}
+</section>
+{% endblock %}
