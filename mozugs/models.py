@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import CHAR, Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from util import ChoiceType
@@ -11,12 +11,27 @@ class User(ModelBase):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    email = Column(String, unique=True)
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, email):
+        self.email = email
 
     def __repr__(self):
         return "<User(%s)>" % self.name
+
+
+class AuthSession(ModelBase):
+    __tablename__ = "auth_sessions"
+
+    user_id = Column(Integer, ForeignKey("users.id"), primary_key=True)
+    user = relationship(User)
+    key = Column(CHAR(32), index=True)
+    expires = Column(DateTime)
+
+    def __init__(self, user, key, expires):
+        self.user = user
+        self.key = key
+        self.expires = expires
 
 
 class Bug(ModelBase):

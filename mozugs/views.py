@@ -1,8 +1,13 @@
-import urllib
+import datetime
 import json
+import urllib
+
+from sqlalchemy import exc as saexc
+from sqlalchemy.orm import exc as ormexc
+
 from werkzeug import redirect
 
-from mozugs import models
+from mozugs import models, util
 
 
 def respond(app, req, template, env):
@@ -10,6 +15,7 @@ def respond(app, req, template, env):
     build_url = req.router.build
     def url_for(view, **values):
         return build_url(view, values, append_unknown=False)
+    env["user"] = req.user
     env["url_for"] = url_for
     env["static"] = app.get_static_resource
     env["admin_addr"] = app.admin_addr
@@ -30,12 +36,29 @@ def login(app, req):
     u = urllib.urlopen("https://browserid.org/verify", data=urllib.urlencode(data))
     resp = json.loads(u.read())
 
+    response = app.Response('')
     if resp["status"] == "okay":
-        # success
-        return app.Response('', status=200)
+        try:
+            user = req.session.query(models.User).filter_by(email=resp["email"]).one()
+        except ormexc.NoResultFound:
+            user = models.User(resp["email"])
+            req.session.add(user)
+        # Add session
+        while True:
+            key = util.make_key(app.salt)
+            expires = datetime.datetime.utcnow() + app.session_length_delta
+            auth = models.AuthSession(user, key, expires)
+            req.session.add(auth)
+            try:
+                req.session.commit()
+            except saexc.IntegrityError:
+                # The key was not unique; try again.
+                continue
+            break
+        response.set_cookie("auth", key, expires=expires)
     else:
-        # fail
-        return app.Response('', status=403)
+        response.status = 403
+    return response
 
 
 def new_bug(app, req):

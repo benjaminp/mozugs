@@ -14,8 +14,9 @@ from werkzeug.exceptions import HTTPException
 
 from sqlalchemy import engine_from_config
 from sqlalchemy.orm.session import Session
+from sqlalchemy.orm import exc as ormexc
 
-from mozugs import urls, util, views
+from mozugs import models, urls, util, views
 
 
 class GlobalState(object):
@@ -63,6 +64,17 @@ class GlobalState(object):
         return Session(self.engine, autoflush=False)
 
 
+def active_auth_session(req):
+    key = req.cookies.get("auth")
+    if key is None or len(key) != 32:
+        return None
+    q = req.session.query(models.AuthSession).filter_by(key=key)
+    try:
+        return q.one()
+    except ormexc.NoResultFound:
+        return None
+
+
 class BugTrackerApp(GlobalState):
     """WSGI application"""
 
@@ -79,6 +91,8 @@ class BugTrackerApp(GlobalState):
         # into the URL.
         req.router.script_name = util.get_script_name(env)
         req.session = self.create_session()
+        auth = active_auth_session(req)
+        req.user = None if auth is None else auth.user
         try:
             end, values = req.router.match()
             view = getattr(views, end)

@@ -19,8 +19,12 @@
 <a class="nav-url" href="{{ url_for('new_bug') }}">New bug</a>
 </nav>
 <div class="login-box">
+{% if user %}
+Logged in as {{ user.email|e }}
+{% else %}
 <span style="color: red">Not logged in</span>
 <a class="nav-url" href="#" id="browserid">Sign-in with BrowserID</a>
+{% endif %}
 </div>
 </header>
 <div id="content-wrapper">{% block content %}{% endblock %}</div>
