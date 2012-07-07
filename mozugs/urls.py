@@ -8,5 +8,6 @@ url_map = Map([
     Rule("/login", endpoint="login"),
     Rule("/newbug/", endpoint="new_bug"),
     Rule("/bug/<int:bugid>/", endpoint="view_bug"),
-    Rule("/bugs/", endpoint="list_bugs")
+    Rule("/bugs/", endpoint="list_bugs"),
+    Rule("/addcomment/<string:kind>/<int:bugid>/", endpoint="add_comment"),
 ], redirect_defaults=False)

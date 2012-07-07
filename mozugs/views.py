@@ -55,9 +55,30 @@ def new_bug(app, req):
 
 def view_bug(app, req, bugid):
     bug = req.session.query(models.Bug).filter_by(id=bugid).one()
-    return respond(app, req, "bug.html", {u"bug" : bug})
+    comments = req.session.query(models.Comment).filter_by(bug_id=bugid)
+    comments_description = [c for c in comments if c.kind == "Description"]
+    comments_cause = [c for c in comments if c.kind == "Cause"]
+    comments_solution = [c for c in comments if c.kind == "Solution"]
+    return respond(app, req, "bug.html", {u"bug" : bug,
+                                          u"comments_description": comments_description,
+                                          u"comments_cause": comments_cause,
+                                          u"comments_solution": comments_solution})
 
 
 def list_bugs(app, req):
     bugs = req.session.query(models.Bug)
     return respond(app, req, "list_bugs.html", {u"bugs": bugs})
+
+
+def add_comment(app, req, kind, bugid):
+    comment = models.Comment()
+    print req.form.keys()
+    comment.bug_id = bugid
+    comment.kind = kind
+    comment.user = req.form[u"user"] # for now
+    comment.message = req.form[u"message"]
+
+    req.session.add(comment)
+    req.session.commit()
+
+    return redirect(req.router.build("view_bug", {"bugid": bugid}))
