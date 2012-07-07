@@ -11,91 +11,39 @@
 <div>Version: {{ bug.version }}</div>
 =======
 </div>
-<div id="bug-container">
+{% macro comment_column(comments, short, kind) %}
 <div class="bug-column-wrapper">
-<section id="bug-description" class="bug-column">
-<h2>Description</h2>
+<section class="bug-column">
+<h2>{{ kind }}</h2>
 <div class="bug-comment">
 <div class="bug-comment-header">
 <a href="">Edit</a>
 </div>
 <div class="bug-comment-text">
-{{ bug.description|e }}
-
-    {% for comment in comments_description %}
-        <hr>
-        <div class="comment">
-            <h4>By: {{ comment.user.email|e }}</h4>
-            <p>Message: {{ comment.message }}</p>
+{% if bug[kind|lower] %}
+{{ bug[kind|lower] }}
+{% else %}
+[empty]
+{% endif %}
+</div>
+</div>
+    {% for comment in comments %}
+        <div class="bug-comment">
+            <h4>{{ comment.user.email|e }} says:</h4>
+            <p>{{ comment.message }}</p>
         </div>
-        <hr>
     {% endfor %}
 
     <div class="commentform">
-    <form id="newdcomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Description') }}">
-        <p><label for="dcommentform-message">Message</label><textarea id="dcommentform-message" name="message"></textarea></p>
+    <form id="new{{ short }}comment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind=kind) }}">
+        <p><label for="{{ short }}commentform-message">Message</label><textarea id="{{ short }}commentform-message" name="message"></textarea></p>
         <input type="submit" value="Submit comment">
     </form>
     </div>
-</div>
-</div>
 </section>
 </div>
-<div class="bug-column-wrapper">
-<section id="bug-cause" class="bug-column">
-<h2>Cause</h2>
-<div class="bug-comment">
-<div class="bug-comment-header">
-<a href="">Edit</a>
-</div>
-<div class="bug-comment-text">
-
-    {% for comment in comments_cause %}
-        <hr>
-        <div class="comment">
-            <h4>By: {{ comment.user.email|e }}</h4>
-            <p>Message: {{ comment.message }}</p>
-        </div>
-        <hr>
-    {% endfor %}
-
-    <div class="commentform">
-    <form id="newccomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Cause') }}">
-        <p><label for="ccommentform-message">Message</label><textarea id="ccommentform-message" name="message"></textarea></p>
-        <input type="submit" value="Submit comment">
-    </form>
-    </div>
-</div>
-</div>
-</section>
-</div>
-<div class="bug-column-wrapper">
-<section id="bug-solution" class="bug-column">
-<h2>Solution</h2>
-<div class="bug-comment">
-<div class="bug-comment-header">
-<a href="">Edit</a>
-</div>
-<div class="bug-comment-text">
-
-    {% for comment in comments_solution %}
-        <hr>
-        <div class="comment">
-            <h4>By: {{ comment.user.email|e }}</h4>
-            <p>Message: {{ comment.message }}</p>
-        </div>
-        <hr>
-    {% endfor %}
-
-    <div class="commentform">
-    <form id="newscomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Solution') }}">
-        <p><label for="scommentform-message">Message</label><textarea id="scommentform-message" name="message"></textarea></p>
-        <input type="submit" value="Submit comment">
-    </form>
-    </div>
-</div>
-</div>
-</section>
-</div>
-</div>
+{% endmacro %}
+{{ comment_column(comments_description, "d", "Description") }}
+{{ comment_column(comments_cause, "c", "Cause") }}
+{{ comment_column(comments_solution, "s", "Solution") }}
 {% endblock %}
