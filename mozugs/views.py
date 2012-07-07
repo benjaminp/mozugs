@@ -32,10 +32,10 @@ def login(app, req):
 
     if resp["status"] == "okay":
         # success
-        pass
+        return app.Response('', status=200)
     else:
         # fail
-        pass
+        return app.Response('', status=403)
 
 
 def new_bug(app, req):
