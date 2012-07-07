@@ -56,6 +56,7 @@ class Comment(ModelBase):
 
     id = Column(Integer, primary_key=True)
     bug_id = Column(Integer, ForeignKey("bugs.id"))
-    user = Column(String) # TODO: FK
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship(User)
     message = Column(String)
     kind = Column(ChoiceType((("d", "Description"), ("c", "Cause"), ("s", "Solution"))))

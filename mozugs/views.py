@@ -106,10 +106,9 @@ def list_bugs(app, req):
 
 def add_comment(app, req, kind, bugid):
     comment = models.Comment()
-    print req.form.keys()
     comment.bug_id = bugid
     comment.kind = kind
-    comment.user = req.form[u"user"] # for now
+    comment.user = req.user
     comment.message = req.form[u"message"]
 
     req.session.add(comment)

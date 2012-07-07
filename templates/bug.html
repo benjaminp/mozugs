@@ -25,7 +25,7 @@
     {% for comment in comments_description %}
         <hr>
         <div class="comment">
-            <h4>By: {{ comment.user }}</h4>
+            <h4>By: {{ comment.user.email|e }}</h4>
             <p>Message: {{ comment.message }}</p>
         </div>
         <hr>
@@ -33,7 +33,6 @@
 
     <div class="commentform">
     <form id="newdcomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Description') }}">
-        <p><label for="dcommentform-user">User</label><input id="dcommentform-user" name="user" type="text"></p>
         <p><label for="dcommentform-message">Message</label><textarea id="dcommentform-message" name="message"></textarea></p>
         <input type="submit" value="Submit comment">
     </form>
@@ -54,7 +53,7 @@
     {% for comment in comments_cause %}
         <hr>
         <div class="comment">
-            <h4>By: {{ comment.user }}</h4>
+            <h4>By: {{ comment.user.email|e }}</h4>
             <p>Message: {{ comment.message }}</p>
         </div>
         <hr>
@@ -62,7 +61,6 @@
 
     <div class="commentform">
     <form id="newccomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Cause') }}">
-        <p><label for="ccommentform-user">User</label><input id="ccommentform-user" name="user" type="text"></p>
         <p><label for="ccommentform-message">Message</label><textarea id="ccommentform-message" name="message"></textarea></p>
         <input type="submit" value="Submit comment">
     </form>
@@ -83,7 +81,7 @@
     {% for comment in comments_solution %}
         <hr>
         <div class="comment">
-            <h4>By: {{ comment.user }}</h4>
+            <h4>By: {{ comment.user.email|e }}</h4>
             <p>Message: {{ comment.message }}</p>
         </div>
         <hr>
@@ -91,7 +89,6 @@
 
     <div class="commentform">
     <form id="newscomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Solution') }}">
-        <p><label for="scommentform-user">User</label><input id="scommentform-user" name="user" type="text"></p>
         <p><label for="scommentform-message">Message</label><textarea id="scommentform-message" name="message"></textarea></p>
         <input type="submit" value="Submit comment">
     </form>
