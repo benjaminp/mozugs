@@ -1,3 +1,5 @@
+import urllib
+import json
 from werkzeug import redirect
 
 from mozugs import models
@@ -18,6 +20,22 @@ def respond(app, req, template, env):
 
 def index(app, req):
     return respond(app, req, "index.html", {})
+
+
+def login(app, req):
+    assertion = req.form["assertion"]
+    audience = "localhost:1111" # TODO: lose hardcoding
+    data = dict(assertion=assertion, audience=audience)
+
+    u = urllib.urlopen("https://browserid.org/verify", data=urllib.urlencode(data))
+    resp = json.loads(u.read())
+
+    if resp["status"] == "okay":
+        # success
+        return app.Response('', status=200)
+    else:
+        # fail
+        return app.Response('', status=403)
 
 
 def new_bug(app, req):
