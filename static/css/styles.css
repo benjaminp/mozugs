@@ -2,6 +2,43 @@ body {
     font-family: Verdana,sans-serif;
 }
 
+header {
+    background-color: rgb(64, 77, 108);
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+/* Prevent header from being considered empty. */
+header:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+#content-wrapper {
+    clear: both;
+}
+
+nav {
+    float: left;
+}
+
+.nav-url {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-url:hover {
+    text-decoration: underline;
+}
+
+.login-box {
+    float: right;
+}
+
 #bug-header {
     background-color: grey;
     border-radius: 15px;

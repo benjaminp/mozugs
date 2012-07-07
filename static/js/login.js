@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     $("#browserid").click(function() {
-        //alert("hello");
         navigator.id.get(gotAssertion);
         return false;
     });
@@ -11,18 +10,16 @@ $(document).ready(function () {
         if (assertion !== null) {
             $.ajax({
                 type: 'POST',
-                url: '/login',
+                url: '/login/',
                 data: { assertion: assertion },
                 success: function(res, status, xhr) {
-                    if (res === null) {}//loggedOut();
-                    else loggedIn(res);
+                    if (res !== null)
+                        location.reload();
                 },
                 error: function(res, status, xhr) {
                     alert("login failure" + res);
                 }
             });
-        } else {
-            //loggedOut();
         }
     }
 

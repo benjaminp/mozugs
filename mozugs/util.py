@@ -1,3 +1,8 @@
+import hashlib
+import os
+import random
+import time
+
 from sqlalchemy import types
 
 def get_script_name(environ):
@@ -17,6 +22,12 @@ def get_script_name(environ):
             name += "/"
         return name
     return "/"
+
+
+def make_key(salt):
+    """Try to create a good key for sessions. Ripped from Django."""
+    raw = "%s%s%s%s" % (random.randrange(0, 2 << 63), os.getpid(), time.time(), salt)
+    return hashlib.md5(raw).hexdigest()
 
 
 # like for choice fields - like severity -- from http://stackoverflow.com/a/6264027
