@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     $("#browserid").click(function() {
-        //alert("hello");
         navigator.id.get(gotAssertion);
         return false;
     });
@@ -21,8 +20,6 @@ $(document).ready(function () {
                     alert("login failure" + res);
                 }
             });
-        } else {
-            //loggedOut();
         }
     }
 
