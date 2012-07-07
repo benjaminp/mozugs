@@ -1,0 +1,3 @@
+*.py[co]
+_env
+config/local.ini
