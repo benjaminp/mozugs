@@ -13,6 +13,15 @@
 
 </head>
 <body>
-{% block content %}{% endblock %}
+<header>
+<nav>
+<a class="nav-url" href="{{ url_for('index') }}">Home</a>
+<a class="nav-url" href="{{ url_for('new_bug') }}">New bug</a>
+</nav>
+<div class="login-box">
+Not logged in
+</div>
+</header>
+<div id="content-wrapper">{% block content %}{% endblock %}</div>
 </body>
 </html>
