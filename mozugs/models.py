@@ -49,7 +49,7 @@ class Bug(ModelBase):
     description = Column(String)
     severity = Column(ChoiceType((("m", "Minor"), ("N", "Normal"), ("M", "Major"))))
     keywords = Column(String)
-    product = Column(String)
+    product = Column(ChoiceType((("F", "Firefox"), ("B", "B2G"), ("M", "Marketplace"), ("T", "Thunderbird"))))
     version = Column(String)
     comments = relationship("Comment")
 
