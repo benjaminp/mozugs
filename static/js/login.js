@@ -14,8 +14,8 @@ $(document).ready(function () {
                 url: '/login/',
                 data: { assertion: assertion },
                 success: function(res, status, xhr) {
-                    if (res === null) {}//loggedOut();
-                    else loggedIn(res);
+                    if (res !== null)
+                        location.reload();
                 },
                 error: function(res, status, xhr) {
                     alert("login failure" + res);
