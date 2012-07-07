@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Bug #{{ bug.id }}{% endblock %}
 {% block content %}
-<div id="bug-header">
+<div id="bug-header" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+     xmlns="http://www.w3.org/1999/html">
 <h1>Bug {{ bug.id }} - {{ bug.title|e }}</h1>
 <div>Reporter: {{ bug.reporter.email|e }} on {{ bug.created.strftime("%A, %d. %B %Y %I:%M%p") }}</div>
 <div>Severity: {{ bug.severity }}</div>
@@ -22,16 +23,18 @@
 {{ bug.description|e }}
 
     {% for comment in comments_description %}
+        <hr>
         <div class="comment">
-            <h4>{{ comment.user }}</h4>
-            {{ comment.message }}
+            <h4>By: {{ comment.user }}</h4>
+            <p>Message: {{ comment.message }}</p>
         </div>
+        <hr>
     {% endfor %}
 
     <div class="commentform">
     <form id="newdcomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Description') }}">
-        <label for="dcommentform-user">User</label><input id="dcommentform-user" name="user" type="text">
-        <label for="dcommentform-message">Message</label><textarea id="dcommentform-message" name="message"></textarea>
+        <p><label for="dcommentform-user">User</label><input id="dcommentform-user" name="user" type="text"></p>
+        <p><label for="dcommentform-message">Message</label><textarea id="dcommentform-message" name="message"></textarea></p>
         <input type="submit" value="Submit comment">
     </form>
     </div>
@@ -49,16 +52,18 @@
 <div class="bug-comment-text">
 
     {% for comment in comments_cause %}
+        <hr>
         <div class="comment">
-            <h4>{{ comment.user }}</h4>
-            {{ comment.message }}
+            <h4>By: {{ comment.user }}</h4>
+            <p>Message: {{ comment.message }}</p>
         </div>
+        <hr>
     {% endfor %}
 
     <div class="commentform">
     <form id="newccomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Cause') }}">
-        <label for="ccommentform-user">User</label><input id="ccommentform-user" name="user" type="text">
-        <label for="ccommentform-message">Message</label><textarea id="ccommentform-message" name="message"></textarea>
+        <p><label for="ccommentform-user">User</label><input id="ccommentform-user" name="user" type="text"></p>
+        <p><label for="ccommentform-message">Message</label><textarea id="ccommentform-message" name="message"></textarea></p>
         <input type="submit" value="Submit comment">
     </form>
     </div>
@@ -76,16 +81,18 @@
 <div class="bug-comment-text">
 
     {% for comment in comments_solution %}
+        <hr>
         <div class="comment">
-            <h4>{{ comment.user }}</h4>
-            {{ comment.message }}
+            <h4>By: {{ comment.user }}</h4>
+            <p>Message: {{ comment.message }}</p>
         </div>
+        <hr>
     {% endfor %}
 
     <div class="commentform">
     <form id="newscomment-form" method="post" action="{{ url_for('add_comment', bugid=bug.id, kind='Solution') }}">
-        <label for="scommentform-user">User</label><input id="scommentform-user" name="user" type="text">
-        <label for="scommentform-message">Message</label><textarea id="scommentform-message" name="message"></textarea>
+        <p><label for="scommentform-user">User</label><input id="scommentform-user" name="user" type="text"></p>
+        <p><label for="scommentform-message">Message</label><textarea id="scommentform-message" name="message"></textarea></p>
         <input type="submit" value="Submit comment">
     </form>
     </div>
