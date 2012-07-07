@@ -2,23 +2,44 @@
 {% block title %}Bug #{{ bug.id }}{% endblock %}
 {% block content %}
 <div id="bug-header">
-<h1>{{ bug.title|e }}</h1>
+<h1>Bug {{ bug.id }} - {{ bug.title|e }}</h1>
 </div>
 <div id="bug-container">
 <div class="bug-column-wrapper">
 <section id="bug-description" class="bug-column">
 <h2>Description</h2>
-<p>{{ bug.description|e }}
+<div class="bug-comment">
+<div class="bug-comment-header">
+<a href="">Edit</a>
+</div>
+<div class="bug-comment-text">
+{{ bug.description|e }}
+</div>
+</div>
 </section>
 </div>
 <div class="bug-column-wrapper">
 <section id="bug-cause" class="bug-column">
 <h2>Cause</h2>
+<div class="bug-comment">
+<div class="bug-comment-header">
+<a href="">Edit</a>
+</div>
+<div class="bug-comment-text">
+</div>
+</div>
 </section>
 </div>
 <div class="bug-column-wrapper">
 <section id="bug-solution" class="bug-column">
 <h2>Solution</h2>
+<div class="bug-comment">
+<div class="bug-comment-header">
+<a href="">Edit</a>
+</div>
+<div class="bug-comment-text">
+</div>
+</div>
 </section>
 </div>
 </div>
