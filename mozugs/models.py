@@ -25,7 +25,7 @@ class Bug(ModelBase):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     description = Column(String)
-    severity = Column(ChoiceType((("m", "minor"), ("N", "normal"), ("M", "major"))))
+    severity = Column(ChoiceType((("m", "Minor"), ("N", "Normal"), ("M", "Major"))))
     keywords = Column(String)
     product = Column(String)
     version = Column(String)
