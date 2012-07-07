@@ -3,7 +3,7 @@
 {% block content %}
 <div id="bug-header">
 <h1>Bug {{ bug.id }} - {{ bug.title|e }}</h1>
-<div>Reporter: {{ bug.reporter.email|e }}</div>
+<div>Reporter: {{ bug.reporter.email|e }} on {{ bug.created.strftime("%A, %d. %B %Y %I:%M%p") }}</div>
 <div>Severity: {{ bug.severity }}</div>
 <div>Keywords: {{ bug.keywords }}</div>
 <div>Product: {{ bug.product }}</div>
