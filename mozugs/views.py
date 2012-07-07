@@ -1,3 +1,6 @@
+import urllib
+import json
+
 def respond(app, req, template, env):
     """Run template engine and generate response"""
     build_url = req.router.build
@@ -13,3 +16,19 @@ def respond(app, req, template, env):
 
 def index(app, req):
     return respond(app, req, "index.html", {})
+
+
+def login(app, req):
+    assertion = req.form["assertion"]
+    audience = "localhost:1111" # TODO: lose hardcoding
+    data = dict(assertion=assertion, audience=audience)
+
+    u = urllib.urlopen("https://browserid.org/verify", data=urllib.urlencode(data))
+    resp = json.loads(u.read())
+
+    if resp["status"] == "okay":
+        # success
+        pass
+    else:
+        # fail
+        pass
