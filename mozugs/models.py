@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from util import ChoiceType
 
 ModelBase = declarative_base()
 
@@ -24,3 +24,7 @@ class Bug(ModelBase):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     description = Column(String)
+    severity = Column(ChoiceType((("m", "minor"), ("N", "normal"), ("M", "major"))))
+    keywords = Column(String)
+    product = Column(String)
+    version = Column(String)

@@ -3,6 +3,16 @@
 <form id="newbug-form" method="post">
 <label for="bugform-title">Title</label><input id="bugform-title" name="title" type="text">
 <label for="bugform-description">What is the bug?</label><textarea id="bugform-description" name="description"></textarea>
-<input type="submit" value="Enter bug">
+<label for="bugform-severity">How severe is this?</label>
+    <select id="bugform-severity" name="severity">
+        <option value="minor">Minor</option>
+        <option value="normal">Normal</option>
+        <option value="major">Major</option>
+    </select>
+<label for="bugform-keywords">Keywords</label><input id="bugform-keywords" name="keywords" type="text">
+<label for="bugform-product">Product</label><input id="bugform-product" name="product" type="text">
+<label for="bugform-version">Version</label><input id="bugform-version" name="version" type="text">
+
+    <input type="submit" value="Enter bug">
 </form>
 {% endblock %}

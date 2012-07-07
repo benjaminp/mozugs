@@ -3,6 +3,10 @@
 {% block content %}
 <div id="bug-header">
 <h1>{{ bug.title|e }}</h1>
+<div>Severity: {{ bug.severity }}</div>
+<div>Keywords: {{ bug.keywords }}</div>
+<div>Product: {{ bug.product }}</div>
+<div>Version: {{ bug.version }}</div>
 </div>
 <div id="bug-container">
 <div class="bug-column-wrapper">

@@ -44,6 +44,10 @@ def new_bug(app, req):
     bug = models.Bug()
     bug.title = req.form[u"title"]
     bug.description = req.form[u"description"]
+    bug.severity = req.form[u"severity"]
+    bug.keywords = req.form[u"keywords"]
+    bug.product = req.form[u"product"]
+    bug.version = req.form[u"version"]
     req.session.add(bug)
     req.session.commit()
     return redirect(req.router.build("view_bug", {"bugid" : bug.id}))
