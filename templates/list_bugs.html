@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Bugs{% endblock %}
+{% block content %}
+
+<ul>
+    {% for bug in bugs %}
+        <li><a href="{{ url_for('view_bug', bugid=bug.id) }}">{{ bug.title }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
