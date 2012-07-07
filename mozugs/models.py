@@ -39,3 +39,4 @@ class Comment(ModelBase):
     bug_id = Column(Integer, ForeignKey("bug.id"))
     user = Column(String) # TODO: FK
     message = Column(String)
+    kind = Column(ChoiceType((("d", "Description"), ("c", "Cause"), ("s", "Solution"))))
