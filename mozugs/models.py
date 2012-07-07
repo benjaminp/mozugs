@@ -28,3 +28,11 @@ class Bug(ModelBase):
     keywords = Column(String)
     product = Column(String)
     version = Column(String)
+
+
+class Comment(ModelBase):
+    __tablename__ = "comments"
+
+    id = Column(Integer, primary_key=True)
+    user = Column(String) # TODO: FK
+    message = Column(String)
