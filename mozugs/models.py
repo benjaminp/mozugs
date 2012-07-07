@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, backref
 from util import ChoiceType
 
 ModelBase = declarative_base()
@@ -24,7 +25,18 @@ class Bug(ModelBase):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     description = Column(String)
-    severity = Column(ChoiceType((("m", "minor"), ("N", "normal"), ("M", "major"))))
+    severity = Column(ChoiceType((("m", "Minor"), ("N", "Normal"), ("M", "Major"))))
     keywords = Column(String)
     product = Column(String)
     version = Column(String)
+    comments = relationship("Comment")
+
+
+class Comment(ModelBase):
+    __tablename__ = "comments"
+
+    id = Column(Integer, primary_key=True)
+    bug_id = Column(Integer, ForeignKey("bug.id"))
+    user = Column(String) # TODO: FK
+    message = Column(String)
+    kind = Column(ChoiceType((("d", "Description"), ("c", "Cause"), ("s", "Solution"))))
