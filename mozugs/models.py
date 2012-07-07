@@ -1,4 +1,5 @@
 from sqlalchemy import CHAR, Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
 from util import ChoiceType
@@ -41,6 +42,7 @@ class Bug(ModelBase):
     __tablename__ = "bugs"
 
     id = Column(Integer, primary_key=True)
+    created = Column(DateTime, default=func.now())
     reporter_id = Column(Integer, ForeignKey("users.id"))
     reporter = relationship(User)
     title = Column(String)
@@ -57,6 +59,7 @@ class Comment(ModelBase):
 
     id = Column(Integer, primary_key=True)
     bug_id = Column(Integer, ForeignKey("bugs.id"))
-    user = Column(String) # TODO: FK
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship(User)
     message = Column(String)
     kind = Column(ChoiceType((("d", "Description"), ("c", "Cause"), ("s", "Solution"))))
