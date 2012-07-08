@@ -2,14 +2,15 @@
 {% block content %}
 <form id="newbug-form" method="post">
 <p><label for="bugform-title">Title</label><input id="bugform-title" name="title" type="text">
-<p><label for="bugform-description">What is the bug?</label><textarea id="bugform-description" name="description"></textarea>
+<p><label for="bugform-description">What is the bug?</label>
+<p><textarea id="bugform-description" rows="20" cols="100" name="description"></textarea>
 <p><label for="bugform-severity">How severe is this?</label>
     <select id="bugform-severity" name="severity">
         <option value="Minor">Minor</option>
         <option value="Normal">Normal</option>
         <option value="Major">Major</option>
     </select>
-<p><label for="bugform-keywords">Keywords</label><input id="bugform-keywords" name="keywords" type="text">
+<p><label for="bugform-keywords">Keywords</label> <input id="bugform-keywords" name="keywords" type="text">
 <p><label for="bugform-product">Product</label>
     <select id="bugform-product" name="product" size="4">
         <option value="Firefox">Firefox</option>
